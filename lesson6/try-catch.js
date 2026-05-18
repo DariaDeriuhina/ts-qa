@@ -5,7 +5,7 @@ async function fetchWithFallback() {
             throw new Error('Primary server is not responding');
         }
         return await response.json();
-    } catch (error) {                                          // ← now used below
+    } catch (error) {
         console.warn('Primary request failed, trying fallback...', error);
         try {
             const backupResponse = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -16,7 +16,7 @@ async function fetchWithFallback() {
         } catch (secondError) {
             throw new Error(
                 'Both servers are unavailable. Please try again later.',
-                { cause: secondError }                         // ← already correct
+                { cause: secondError }
             );
         }
     }
